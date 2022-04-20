@@ -1,4 +1,5 @@
 #pragma once
+#include "../GameManager/config.hpp"
 #include "../SFMLWindow/SFMLWindow.hpp"
 
 class Application {

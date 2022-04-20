@@ -1,22 +1,16 @@
 #include "SFMLWindow.hpp"
 
-SFMLWindow::SFMLWindow()
+SFMLWindow::SFMLWindow(const int16_t width, const int16_t height, const char* appName)
 	: m_window(
-		sf::VideoMode(640, 480), 
-		"Application",
-		sf::Style::Close)
-{ 
-	this->init();
-}
+		sf::VideoMode(width, height),
+		appName, sf::Style::Close)
+	, m_windowWidth(width)
+	, m_windowHeight(height)
+	, m_event()
+{ }
 
 SFMLWindow::~SFMLWindow()
-{
-}
-
-void SFMLWindow::init()
-{
-	this->m_window.setTitle("Tower Defence: The Game");
-}
+{ }
 
 void SFMLWindow::pollEvents()
 {

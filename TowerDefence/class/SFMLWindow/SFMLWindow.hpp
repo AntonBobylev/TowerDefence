@@ -4,7 +4,8 @@
 class SFMLWindow {
 
 public:
-	SFMLWindow();
+	SFMLWindow() = delete;
+	SFMLWindow(const int16_t width, const int16_t height, const char* appName);
 	~SFMLWindow();
 
 public:
@@ -24,10 +25,13 @@ private:
 
 
 private:
-	void init();
 	void closeWindow();
 
 private:
 	sf::RenderWindow m_window;
 	sf::Event m_event;
+
+private:
+	int16_t m_windowWidth;
+	int16_t m_windowHeight;
 };

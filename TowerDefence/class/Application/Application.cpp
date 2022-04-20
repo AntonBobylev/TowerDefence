@@ -1,6 +1,7 @@
 #include "Application.hpp"
 
 Application::Application()
+	: m_window(config::WINDOW_WIDTH, config::WINDOW_HEIGHT, "Tower Defence: The Game")
 {
 	init();
 }
