@@ -1,0 +1,14 @@
+*.sln
+/.vs
+
+/Debug
+/Release
+/TowerDefence/Debug
+/TowerDefence/Release
+
+
+*.vcxproj
+*.filters
+*.user
+
+
