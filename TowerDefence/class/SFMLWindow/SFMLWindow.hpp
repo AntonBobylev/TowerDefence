@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../Entity/Entity.hpp"
 
 class SFMLWindow {
 
@@ -10,10 +11,12 @@ public:
 
 public:
 	void pollEvents();
-	void render();
+	void clearScreen();
+	void displayScreen();
 
 public:
 	bool isWindowOpened() const noexcept;
+	void renderEntities(std::vector<Entity>& entities);
 
 //Events:
 private:
@@ -22,7 +25,6 @@ private:
 
 	//Keyboard
 	void pollKeyboardEvents();
-
 
 private:
 	void closeWindow();
