@@ -16,7 +16,8 @@ public:
 
 public:
 	bool isWindowOpened() const noexcept;
-	void renderEntities(std::vector<Entity>& entities);
+	std::shared_ptr<sf::RenderWindow> getWindow() { return this->m_window; };
+	std::shared_ptr<sf::Event> getEvent() const noexcept;
 
 //Events:
 private:
@@ -26,12 +27,15 @@ private:
 	//Keyboard
 	void pollKeyboardEvents();
 
+	//Mouse
+	void pollMouseEvents();
+
 private:
 	void closeWindow();
 
 private:
-	sf::RenderWindow m_window;
-	sf::Event m_event;
+	std::shared_ptr<sf::RenderWindow> m_window;
+	std::shared_ptr<sf::Event> m_event;
 
 private:
 	int16_t m_windowWidth;

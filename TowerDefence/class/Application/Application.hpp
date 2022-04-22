@@ -16,9 +16,11 @@ private:
 	void init();
 
 private:
-	void addEntityToContainer(Entity entity);
+	void addEntityToContainer(std::shared_ptr<Entity> entity);
+	void renderEntities();
+	void updateEntities(float dt);
 
 private:
-	SFMLWindow m_window;
-	std::vector<Entity> m_entities;
+	std::shared_ptr<SFMLWindow> m_window;
+	std::vector<std::shared_ptr<Entity>> m_entities;
 };

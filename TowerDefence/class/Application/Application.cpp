@@ -1,8 +1,9 @@
 #include "Application.hpp"
 #include "../PlayerEntities/SimpleTower.hpp"
+#include <iostream>
 
 Application::Application()
-	: m_window(config::WINDOW_WIDTH, config::WINDOW_HEIGHT, "Tower Defence: The Game")
+	: m_window(std::make_shared<SFMLWindow>(config::WINDOW_WIDTH, config::WINDOW_HEIGHT, "Tower Defence: The Game"))
 	, m_entities()
 {
 	init();
@@ -15,22 +16,51 @@ Application::~Application()
 void Application::init()
 { }
 
-void Application::addEntityToContainer(Entity entity)
+void Application::addEntityToContainer(std::shared_ptr<Entity> entity)
 {
 	this->m_entities.push_back(entity);
 }
 
+void Application::renderEntities()
+{
+	for (unsigned int i = 0u; i < this->m_entities.size(); i++) {
+		this->m_entities[i]->render(this->m_window->getWindow());
+	}
+}
+
+void Application::updateEntities(float dt)
+{
+	for (unsigned int i = 0u; i < this->m_entities.size(); i++) {
+		if (this->m_entities[i]->removeRequired()) {
+			this->m_entities.erase(this->m_entities.begin() + i);
+		} else {
+			this->m_entities[i]->update(dt);
+		}
+		
+	}
+}
+
 int Application::mainLoop()
 {
-	SimpleTower tower{ "resources/tower_texture.png" };
-	tower.setPosition(sf::Vector2f(config::WINDOW_WIDTH / 2, config::WINDOW_HEIGHT / 2));
+	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>("resources/tower_texture.png");
+	tower->setPosition(sf::Vector2f(config::WINDOW_WIDTH / 2, config::WINDOW_HEIGHT / 2));
 	this->addEntityToContainer(tower);
-	while (this->m_window.isWindowOpened()) {
-		this->m_window.pollEvents();
 
-		this->m_window.clearScreen();
-		this->m_window.renderEntities(this->m_entities);
-		this->m_window.displayScreen();
+	tower->shoot(sf::Vector2f(50.0f, 50.0f), this->m_entities);
+	
+	sf::Clock deltaClock;
+	while (this->m_window->isWindowOpened()) {
+		this->m_window->pollEvents();
+
+		sf::Time delta = deltaClock.restart();
+		float dtFloat = static_cast<float>(delta.asMilliseconds());
+
+		std::cout << this->m_entities.size() << std::endl;;
+
+		this->m_window->clearScreen();
+		this->updateEntities(dtFloat);
+		this->renderEntities();
+		this->m_window->displayScreen();
 	}
 
 	return 0;
