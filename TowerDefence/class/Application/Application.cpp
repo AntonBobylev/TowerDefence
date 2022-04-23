@@ -43,12 +43,18 @@ void Application::updateEntities(float dt)
 
 int Application::mainLoop()
 {
-	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>("resources/tower_texture.png");
+	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>(config::SIMPLE_TOWER_TEXTURE_NAME);
 	tower->setPosition(sf::Vector2f(config::WINDOW_WIDTH / 2, config::WINDOW_HEIGHT / 2));
 	this->addEntityToContainer(tower);
 	tower->shoot(sf::Vector2f(50.0f, 50.0f), this->m_entities);
 
-	std::shared_ptr<SimpleEnemy> enemy = std::make_shared<SimpleEnemy>("resources/simple_enemy.png", sf::Vector2f(900.0f, 600.0f), 0.05f);
+	std::shared_ptr<SimpleEnemy> enemy = std::make_shared<SimpleEnemy>(
+		config::SIMPLE_ENEMY_TEXTURE_NAME, 
+		sf::Vector2f(900.0f, 600.0f), 
+		config::SIMPLE_ENEMY_SPEED, 
+		config::SIMPLE_ENEMY_SCALE
+	);
+
 	enemy->setPosition(sf::Vector2f(600,200));
 	this->addEntityToContainer(enemy);
 

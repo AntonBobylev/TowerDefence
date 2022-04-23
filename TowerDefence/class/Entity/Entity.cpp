@@ -42,7 +42,12 @@ void Entity::checkWindowBounds()
 
 void Entity::update(float dt)
 {
+	if (this->m_needToBeRemoved) {
+		return;
+	}
+
 	this->checkWindowBounds();
+	this->animate(dt);
 }
 
 void Entity::animate(float dt)

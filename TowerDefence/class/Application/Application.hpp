@@ -22,5 +22,5 @@ private:
 
 private:
 	std::shared_ptr<SFMLWindow> m_window;
-	std::vector<std::shared_ptr<Entity>> m_entities;
+	config::EntitiesContainer m_entities;
 };

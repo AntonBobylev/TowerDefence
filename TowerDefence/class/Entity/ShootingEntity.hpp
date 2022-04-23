@@ -4,11 +4,12 @@
 
 class ShootingEntity : public Entity {
 public:
+	ShootingEntity() = delete;
 	ShootingEntity(sf::String textureName, sf::String bulletTextureName, float scale = 0.5f);
 	~ShootingEntity();
 
 public:
-	virtual void shoot(sf::Vector2f targetPosition, std::vector<std::shared_ptr<Entity>>& entities) = 0;
+	virtual void shoot(sf::Vector2f targetPosition, config::EntitiesContainer& entities) = 0;
 
 public:
 	sf::String m_bulletTextureName;
