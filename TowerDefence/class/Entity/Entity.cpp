@@ -45,6 +45,10 @@ void Entity::update(float dt)
 	this->checkWindowBounds();
 }
 
+void Entity::animate(float dt)
+{
+}
+
 void Entity::init(sf::String textureName, float scale)
 {
 	this->m_texture.loadFromFile(textureName);

@@ -1,5 +1,6 @@
 #include "Application.hpp"
 #include "../PlayerEntities/SimpleTower.hpp"
+#include "../EnemyEntities/SimpleEnemy.hpp"
 #include <iostream>
 
 Application::Application()
@@ -45,9 +46,12 @@ int Application::mainLoop()
 	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>("resources/tower_texture.png");
 	tower->setPosition(sf::Vector2f(config::WINDOW_WIDTH / 2, config::WINDOW_HEIGHT / 2));
 	this->addEntityToContainer(tower);
-
 	tower->shoot(sf::Vector2f(50.0f, 50.0f), this->m_entities);
-	
+
+	std::shared_ptr<SimpleEnemy> enemy = std::make_shared<SimpleEnemy>("resources/simple_enemy.png");
+	enemy->setPosition(sf::Vector2f(600,200));
+	this->addEntityToContainer(enemy);
+
 	sf::Clock deltaClock;
 	while (this->m_window->isWindowOpened()) {
 		this->m_window->pollEvents();

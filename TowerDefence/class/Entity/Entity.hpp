@@ -18,6 +18,7 @@ public:
 
 public:
 	virtual void update(float dt);
+	virtual void animate(float dt);
 
 private:
 	void init(sf::String textureName, float scale);
