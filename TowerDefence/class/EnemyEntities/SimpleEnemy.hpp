@@ -3,6 +3,6 @@
 
 class SimpleEnemy : public MovingEntity {
 public:
-	SimpleEnemy(sf::String textureName, float scale = 0.5f);
+	SimpleEnemy(sf::String textureName, sf::Vector2f target, float speed, float scale = 0.5f);
 	~SimpleEnemy();
 };

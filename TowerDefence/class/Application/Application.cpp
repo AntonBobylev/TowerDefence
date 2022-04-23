@@ -48,7 +48,7 @@ int Application::mainLoop()
 	this->addEntityToContainer(tower);
 	tower->shoot(sf::Vector2f(50.0f, 50.0f), this->m_entities);
 
-	std::shared_ptr<SimpleEnemy> enemy = std::make_shared<SimpleEnemy>("resources/simple_enemy.png");
+	std::shared_ptr<SimpleEnemy> enemy = std::make_shared<SimpleEnemy>("resources/simple_enemy.png", sf::Vector2f(900.0f, 600.0f), 0.05f);
 	enemy->setPosition(sf::Vector2f(600,200));
 	this->addEntityToContainer(enemy);
 
@@ -56,13 +56,13 @@ int Application::mainLoop()
 	while (this->m_window->isWindowOpened()) {
 		this->m_window->pollEvents();
 
-		sf::Time delta = deltaClock.restart();
-		float dtFloat = static_cast<float>(delta.asMilliseconds());
+		float dt = static_cast<float>(deltaClock.getElapsedTime().asMilliseconds());
+		deltaClock.restart();
 
 		std::cout << this->m_entities.size() << std::endl;;
 
 		this->m_window->clearScreen();
-		this->updateEntities(dtFloat);
+		this->updateEntities(dt);
 		this->renderEntities();
 		this->m_window->displayScreen();
 	}
