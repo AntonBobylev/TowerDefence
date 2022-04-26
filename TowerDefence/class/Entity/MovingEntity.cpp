@@ -2,9 +2,10 @@
 
 MovingEntity::MovingEntity(sf::String textureName, sf::Vector2f target, float speed, float scale)
 	: Entity(textureName, scale)
-	, m_targetPosition(target)
 	, m_speed(speed)
+	, m_path()
 {
+	this->m_targetPosition = this->m_path.getPoints()[0].getCoordinate();
 }
 
 MovingEntity::~MovingEntity()
@@ -31,31 +32,34 @@ sf::Vector2f MovingEntity::calculateDestinationPoint(float dt)
 
 void MovingEntity::hittedTarget()
 {
-	sf::IntRect targetRect{ static_cast<sf::Vector2i>(this->m_targetPosition), config::ENTITY_LOCAL_RECT };
-	if (targetRect.contains(static_cast<sf::Vector2i>(this->getPosition()))) {
+	if (this->m_path.isPathPassed()) {
 		this->m_needToBeRemoved = true;
 		this->m_sprite.setPosition(config::OUT_THE_MAP_POINT);
+	}
+
+	sf::Vector2i targetPosition = static_cast<sf::Vector2i>(this->m_targetPosition);
+	sf::Vector2i currentPosition = static_cast<sf::Vector2i>(this->getPosition());
+
+	sf::IntRect targetRect{ 
+		sf::Vector2i(targetPosition.x - config::ENTITY_LOCAL_RECT.x / 2, 
+					 targetPosition.y - config::ENTITY_LOCAL_RECT.y / 2),
+		config::ENTITY_LOCAL_RECT };
+	
+	if (targetRect.contains(currentPosition)) {
+		this->m_path.setPointHitted();
+		this->m_targetPosition = this->m_path.getNextPoint();
 	}
 }
 
 sf::Vector2f MovingEntity::normalize()
 {
 	sf::Vector2f currentPosition = this->getPosition();
-	int8_t xSign = currentPosition.x > this->m_targetPosition.x ? -1 : 1;
-	int8_t ySign = currentPosition.y > this->m_targetPosition.y ? -1 : 1;
+	sf::Vector2f source = this->m_targetPosition - currentPosition;
+	
+	float length = sqrt((source.x * source.x) + (source.y * source.y));
 
-	float SlopeX = this->m_targetPosition.x - currentPosition.x;
-	float SlopeY = this->m_targetPosition.y - currentPosition.y;
+	if (length != 0)
+		return sf::Vector2f(source.x / length, source.y / length);
 
-	sf::Vector2f normal;
-
-	if ((SlopeY == 1) || (SlopeY == -1)) {
-		normal.y = SlopeY;
-		normal.x = SlopeX;
-	} else {
-		normal.y = xSign * (SlopeY / SlopeY);
-		normal.x = ySign * (SlopeX / SlopeY);
-	}
-
-	return normal;
+	return source;
 }

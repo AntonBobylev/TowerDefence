@@ -19,3 +19,10 @@ void SimpleTower::shoot(sf::Vector2f targetPosition, config::EntitiesContainer& 
 	entities.push_back(newBullet);
 	return;
 }
+
+void SimpleTower::update(float dt)
+{
+	ShootingEntity::update(dt);
+
+	
+}

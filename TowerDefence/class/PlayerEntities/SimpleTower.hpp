@@ -9,4 +9,7 @@ public:
 
 public:
 	void shoot(sf::Vector2f targetPosition, config::EntitiesContainer& entities);
+
+private:
+	void update(float dt);
 };

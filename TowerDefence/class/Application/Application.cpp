@@ -46,7 +46,6 @@ int Application::mainLoop()
 	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>(config::SIMPLE_TOWER_TEXTURE_NAME);
 	tower->setPosition(sf::Vector2f(config::WINDOW_WIDTH / 2, config::WINDOW_HEIGHT / 2));
 	this->addEntityToContainer(tower);
-	tower->shoot(sf::Vector2f(50.0f, 50.0f), this->m_entities);
 
 	std::shared_ptr<SimpleEnemy> enemy = std::make_shared<SimpleEnemy>(
 		config::SIMPLE_ENEMY_TEXTURE_NAME, 
@@ -54,9 +53,9 @@ int Application::mainLoop()
 		config::SIMPLE_ENEMY_SPEED, 
 		config::SIMPLE_ENEMY_SCALE
 	);
-
-	enemy->setPosition(sf::Vector2f(600,200));
+	
 	this->addEntityToContainer(enemy);
+	tower->shoot(enemy->getPosition(), this->m_entities);
 
 	sf::Clock deltaClock;
 	while (this->m_window->isWindowOpened()) {
@@ -64,6 +63,7 @@ int Application::mainLoop()
 
 		float dt = static_cast<float>(deltaClock.getElapsedTime().asMilliseconds());
 		deltaClock.restart();
+		dt = 2.0f;
 
 		std::cout << this->m_entities.size() << std::endl;;
 

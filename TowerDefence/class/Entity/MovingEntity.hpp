@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.hpp"
+#include "MovingPath/MovingPath.hpp"
 
 class MovingEntity : public Entity {
 public:
@@ -9,11 +10,12 @@ public:
 
 public:
 	virtual void update(float dt);
-	sf::Vector2f calculateDestinationPoint(float dt); // Calculates destination point for current frame
+	sf::Vector2f calculateDestinationPoint(float dt); // Calculates destination point for the current frame
 	void hittedTarget();
 	sf::Vector2f normalize();
 
 public:
+	MovingPath m_path;
 	sf::Vector2f m_targetPosition;
 	float m_speed;
 };
