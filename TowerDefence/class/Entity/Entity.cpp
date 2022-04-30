@@ -40,12 +40,19 @@ void Entity::checkWindowBounds()
 	}
 }
 
-void Entity::update(float dt)
+sf::Vector2i Entity::getSpriteSize() const noexcept
+{
+	sf::IntRect textureRect = this->m_sprite.getTextureRect();
+	return { textureRect.width, textureRect.height};
+}
+
+void Entity::update(float dt, std::vector<std::shared_ptr<Entity>>& entities)
 {
 	if (this->m_needToBeRemoved) {
 		return;
 	}
 
+	this->checkCollisions(entities, dt);
 	this->checkWindowBounds();
 	this->animate(dt);
 }
@@ -63,6 +70,10 @@ void Entity::init(sf::String textureName, float scale)
 	this->m_sprite.setScale(this->m_scale, this->m_scale);
 
 	this->setSpriteOrigin();
+}
+
+void Entity::checkCollisions(std::vector<std::shared_ptr<Entity>>& entities, float dt)
+{
 }
 
 void Entity::setSpriteOrigin()

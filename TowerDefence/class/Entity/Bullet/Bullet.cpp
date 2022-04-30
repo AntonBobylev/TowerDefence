@@ -9,9 +9,9 @@ Bullet::Bullet(sf::String textureName, sf::Vector2f targetPosition, float bullet
 Bullet::~Bullet()
 { }
 
-void Bullet::update(float dt)
+void Bullet::update(float dt, std::vector<std::shared_ptr<Entity>>& entities)
 {
-	Entity::update(dt);
+	Entity::update(dt, entities);
 
 	this->hittedTarget();
 

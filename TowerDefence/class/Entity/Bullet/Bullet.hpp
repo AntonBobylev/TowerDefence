@@ -8,7 +8,7 @@ public:
 	~Bullet();
 
 private:
-	void update(float dt);
+	void update(float dt, std::vector<std::shared_ptr<Entity>>& entities);
 	void hittedTarget();
 	sf::Vector2f normalize();
 	sf::Vector2f calculateDestinationPoint(float dt);

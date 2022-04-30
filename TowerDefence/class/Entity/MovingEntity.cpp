@@ -11,9 +11,9 @@ MovingEntity::MovingEntity(sf::String textureName, sf::Vector2f target, float sp
 MovingEntity::~MovingEntity()
 { }
 
-void MovingEntity::update(float dt)
+void MovingEntity::update(float dt, std::vector<std::shared_ptr<Entity>>& entities)
 {
-	Entity::update(dt);
+	Entity::update(dt, entities);
 
 	this->hittedTarget();
 

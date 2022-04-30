@@ -10,18 +10,24 @@ public:
 	~Entity();
 
 public:
-	void setPosition(sf::Vector2f position);
+	virtual void init(sf::String textureName, float scale);
+	virtual void checkCollisions(std::vector<std::shared_ptr<Entity>>& entities, float dt);
+	virtual void render(std::shared_ptr<sf::RenderWindow> window);
+	
+	virtual void setPosition(sf::Vector2f position);
 	sf::Vector2f getPosition() const noexcept;
-	void render(std::shared_ptr<sf::RenderWindow> window);
+	
+	sf::Vector2i getSpriteSize() const noexcept;
+
+
 	bool removeRequired() const noexcept;
 	void checkWindowBounds();
 
 public:
-	virtual void update(float dt);
+	virtual void update(float dt, std::vector<std::shared_ptr<Entity>>& entities);
 	virtual void animate(float dt);
 
 private:
-	void init(sf::String textureName, float scale);
 	void setSpriteOrigin();
 
 public:

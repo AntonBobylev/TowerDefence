@@ -9,7 +9,7 @@ public:
 	~MovingEntity();
 
 public:
-	virtual void update(float dt);
+	virtual void update(float dt, std::vector<std::shared_ptr<Entity>>& entities);
 	sf::Vector2f calculateDestinationPoint(float dt); // Calculates destination point for the current frame
 	void hittedTarget();
 	sf::Vector2f normalize();

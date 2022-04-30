@@ -35,15 +35,14 @@ void Application::updateEntities(float dt)
 		if (this->m_entities[i]->removeRequired()) {
 			this->m_entities.erase(this->m_entities.begin() + i);
 		} else {
-			this->m_entities[i]->update(dt);
+			this->m_entities[i]->update(dt, this->m_entities);
 		}
-		
 	}
 }
 
 int Application::mainLoop()
 {
-	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>(config::SIMPLE_TOWER_TEXTURE_NAME);
+	std::shared_ptr<SimpleTower> tower = std::make_shared<SimpleTower>(config::SIMPLE_TOWER_TEXTURE_NAME, config::BULLET_TEXTURE_NAME);
 	tower->setPosition(sf::Vector2f(config::WINDOW_WIDTH / 2, config::WINDOW_HEIGHT / 2));
 	this->addEntityToContainer(tower);
 
@@ -61,9 +60,8 @@ int Application::mainLoop()
 	while (this->m_window->isWindowOpened()) {
 		this->m_window->pollEvents();
 
-		float dt = static_cast<float>(deltaClock.getElapsedTime().asMilliseconds());
+		float dt = (deltaClock.getElapsedTime().asSeconds());
 		deltaClock.restart();
-		dt = 2.0f;
 
 		std::cout << this->m_entities.size() << std::endl;;
 
