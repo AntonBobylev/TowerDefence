@@ -1,7 +1,7 @@
 #pragma once
-#include "../Entity/EnemyEntity.hpp"
+#include "../Entity/MovingEntity.hpp"
 
-class SimpleEnemy : public EnemyEntity{
+class SimpleEnemy : public MovingEntity {
 public:
 	SimpleEnemy() = delete;
 	SimpleEnemy(sf::String textureName, sf::Vector2f target, float speed, float scale = 0.5f);
